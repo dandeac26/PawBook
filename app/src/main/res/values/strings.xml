@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PawBook</string>
+    <string name="app_loading">Loading data. Please wait…</string>
+    <string name="images_loading">Loading images. Please wait…</string>
+    <string name="load_more_button">Load more</string>
+    <string name="favourites_add_button">Add to favourites</string>
+    <string name="favourites_remove_button">Remove from favourites</string>
+    <string name="breed_placeholder_1">Husky</string>
+    <string name="breed_placeholder_2">Beagle</string>
+    <string name="breed_placeholder_3">Labrador</string>
+    <string name="breed_placeholder">Loading dog breed…</string>\
+    <string name="hardcoded_description">Showing image of dog breed</string>
+</resources>
