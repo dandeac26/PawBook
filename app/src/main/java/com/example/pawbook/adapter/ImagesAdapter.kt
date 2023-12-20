@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.pawbook.FavoritesManager
 import com.example.pawbook.R
 
-//class ImagesAdapter : RecyclerView.Adapter<ImagesAdapter.ImageViewHolder>() {
 class ImagesAdapter(private val longClickListener: (Int) -> Unit) : RecyclerView.Adapter<ImagesAdapter.ImageViewHolder>() {
     private val images = mutableListOf<String>()
 
@@ -28,10 +27,6 @@ class ImagesAdapter(private val longClickListener: (Int) -> Unit) : RecyclerView
             }
         }
     }
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
-//        return ImageViewHolder(view)
-//    }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = images[position]

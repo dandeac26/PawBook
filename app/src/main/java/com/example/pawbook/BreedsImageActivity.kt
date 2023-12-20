@@ -6,6 +6,8 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,8 +33,6 @@ class BreedsImageActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.imagesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.adapter = imagesAdapter
-
 
         imagesAdapter = ImagesAdapter { position ->
             selectedImagePosition = position
@@ -41,6 +41,7 @@ class BreedsImageActivity : AppCompatActivity() {
         recyclerView.adapter = imagesAdapter
 
         registerForContextMenu(recyclerView)
+
         if (!breed.isNullOrEmpty()) {
             Log.d("NAME OF BREED", breed)
             fetchImages(breed)
@@ -53,26 +54,30 @@ class BreedsImageActivity : AppCompatActivity() {
         val loadMoreButton: Button = findViewById(R.id.loadMoreButton)
         loadMoreButton.setOnClickListener {
             displayImages()
+
+            recyclerView.postDelayed({
+                recyclerView.smoothScrollBy(0, 1000)
+            }, 100)
         }
     }
-
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.image_context_menu, menu)
     }
 
-
     private fun parseBreedName(breed: String?): String {
         return breed?.lowercase()?.replace(" ", "/") ?: ""
     }
 
     private fun fetchImages(breed: String) {
+        showLoading()
         RetrofitClient.instance.getBreedImages(breed).enqueue(object : Callback<BreedImagesResponse> {
             override fun onResponse(call: Call<BreedImagesResponse>, response: Response<BreedImagesResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     allImages = response.body()!!.message
-                    displayImages() // Display the first batch of images
+                    displayImages()
+                    hideLoading()
                 } else {
                     Log.d("ImageAPI","no success image response")
                 }
@@ -98,12 +103,10 @@ class BreedsImageActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_to_favorites -> {
-                // Handle adding to favorites
                 addToFavorites(selectedImagePosition)
                 return true
             }
             R.id.remove_from_favorites -> {
-                // Handle removing from favorites
                 removeFromFavorites(selectedImagePosition)
                 return true
             }
@@ -122,8 +125,16 @@ class BreedsImageActivity : AppCompatActivity() {
         FavoritesManager.removeFromFavorites(imageUrl)
         imagesAdapter?.notifyItemChanged(position)
     }
-//    override fun onCreateContextMenu(menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-//        super.onCreateContextMenu(menu, v, menuInfo)
-//        menuInflater.inflate(R.menu.breeds_item_menu, menu)
-//    }
+    private fun showLoading() {
+        val loadingLayout: FrameLayout = findViewById(R.id.loadingLayout)
+        loadingLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        val loadingLayout: FrameLayout = findViewById(R.id.loadingLayout)
+
+        loadingLayout.postDelayed({
+            loadingLayout.visibility = View.GONE
+        }, 2000)
+    }
 }

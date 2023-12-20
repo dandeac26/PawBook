@@ -14,10 +14,8 @@ class BreedsAdapter(private val context: Context,
                     private var dataSource: MutableList<BreedsItem>
 ) : BaseAdapter() {
 
-
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
 
     override fun getCount(): Int {
         return dataSource.size
@@ -37,7 +35,6 @@ class BreedsAdapter(private val context: Context,
             R.layout.breeds_list_item,
             p2, false)
         rowView.findViewById<TextView>(R.id.breedsTitleTextView).text = dataSource[p0].title
-
 
         return rowView
     }

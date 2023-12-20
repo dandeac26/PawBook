@@ -50,14 +50,11 @@ class BreedsActivity : AppCompatActivity() {
         fetchBreedsData()
     }
 
-
-
     private fun initializeView(){
         breedsList = findViewById(R.id.breedsListView)
     }
 
     private fun initDatasource() {
-        // Use Retrofit to fetch the breeds from the API
         RetrofitClient.instance.getAllBreeds().enqueue(object : Callback<BreedsApiResponse> {
             override fun onResponse(call: Call<BreedsApiResponse>, response: Response<BreedsApiResponse>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -75,8 +72,7 @@ class BreedsActivity : AppCompatActivity() {
                             }
                         }
                     }
-
-                    breedsAdapter.notifyDataSetChanged() // Make sure you have a reference to your adapter
+                    breedsAdapter.notifyDataSetChanged()
                 } else {
                     Log.d("API Response", "Error, response unsuccessful")
                 }
