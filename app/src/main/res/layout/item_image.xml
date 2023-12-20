@@ -7,16 +7,17 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/hardcoded_description" />
+        android:layout_height="391dp"
+        android:contentDescription="@string/hardcoded_description"
+        android:scaleType="centerCrop" />
+
     <ImageView
         android:id="@+id/favoriteIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:layout_margin="8dp"
+        android:contentDescription="@string/hardcoded_description"
         android:src="@drawable/heart_icon"
-        android:visibility="gone"
-        android:contentDescription="@string/hardcoded_description" />
+        android:visibility="gone" />
 </FrameLayout>
