@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
              startActivity(Intent(this, BreedsActivity::class.java))
              finish()
-        }, 2000)
+        }, 2100)
     }
 }
